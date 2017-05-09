@@ -14,13 +14,15 @@ var HeroService = (function () {
     HeroService.prototype.getHeroes = function () {
         return Promise.resolve(mock_heroes_1.HEROES);
     };
-    // See the "Take it slow" appendix
     HeroService.prototype.getHeroesSlowly = function () {
         var _this = this;
         return new Promise(function (resolve) {
-            // Simulate server latency with 2 second delay
-            setTimeout(function () { return resolve(_this.getHeroes()); }, 2000);
+            // Simulate server latency with 0,5 second delay
+            setTimeout(function () { return resolve(_this.getHeroes()); }, 500);
         });
+    };
+    HeroService.prototype.getHero = function (id) {
+        return this.getHeroes().then(function (heroes) { return heroes.find(function (hero) { return hero.id === id; }); });
     };
     return HeroService;
 }());
